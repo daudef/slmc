@@ -1,0 +1,85 @@
+[tool.poetry]
+name = "slmc"
+version = "0.1.0"
+description = "Simple Layered Pydantic-based Configuration library"
+authors = ["Florian Daude <floriandaude@hotmail.fr>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.12"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+pytest-cov = "^4.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.pyright]
+exclude = ["**/__pycache__"]
+include = ["slmc", "test"]
+typeCheckingMode = "strict"
+venvPath = "."
+venv = ".venv"
+pythonVersion = "3.12"
+stubPath = "stubs/"
+
+
+[tool.ruff.lint.flake8-pytest-style]
+fixture-parentheses = false
+
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = "single"
+
+[tool.ruff.isort]
+split-on-trailing-comma = false
+
+[tool.ruff.format]
+exclude = []
+indent-style = "space"
+line-ending = "lf"
+quote-style = "single"
+skip-magic-trailing-comma = true
+
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+preview = false
+exclude = ["stubs/"]
+select = ["ALL"]
+ignore = [
+    'D100',   # Missing docstring in public module
+    'D101',   # Missing docstring in public class
+    'D102',   # Missing docstring in public method
+    'D103',   # Missing docstring in public function
+    'D104',   # Missing docstring in public package
+    'D105',   # Missing docstring in magic method
+    'ANN101', # Missing type annotation for `self` in method
+    'ANN102', #  Missing type annotation for `cls` in classmethodRuffANN102
+    'ANN201', # Missing return type annotation for public function 
+    'ANN204', # Missing return type annotation for special method
+
+    'S101',    # Use of `assert` detected
+    'COM812',  # Trailing comma missing
+    'PLR2004', # Magic value used in comparison
+    'PLW2901', # Loop variable overwritten by assignment target
+    'TCH002',  # Move third-party import `pydantic` into a type-checking block
+]
+
+
+[tool.coverage.run]
+branch = true
+data_file = "coverage/measurements.cov"
+
+[tool.coverage.report]
+precision = 1
+exclude_also = ["@typing\\.overload", "__repr__", "@abc\\.abstractmethod"]
+
+[tool.coverage.html]
+directory = "coverage/html"
